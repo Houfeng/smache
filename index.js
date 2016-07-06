@@ -5,6 +5,7 @@ function Cache(options) {
   options = options || {};
   this.options = options;
   this._cache = Object.create(null);
+  this._index = 0;
 };
 
 /**
@@ -30,7 +31,7 @@ Cache.prototype._check = function () {
   if (this.count() < this.options.max) return;
   var oldItem = {
     at: Date.now() * 2,
-    sn: Number.MAX_VALUE
+    sn: this._index * 2
   };
   this._each(function (item) {
     if (item.at > oldItem.at) return;
@@ -67,7 +68,7 @@ Cache.prototype.set = function (key, value) {
   this._check();
   key = key.toString();
   this._cache[key] = {
-    sn: this.count(),
+    sn: this._index++,
     at: Date.now(),
     value: value
   };
@@ -89,6 +90,7 @@ Cache.prototype.remove = function (key) {
  **/
 Cache.prototype.clear = function () {
   this._cache = Object.create(null);
+  this._index = 0;
 };
 
 module.exports = Cache;
