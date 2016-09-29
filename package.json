@@ -1,6 +1,6 @@
 {
   "name": "smache",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Smart caching module",
   "main": "./lib/index.js",
   "scripts": {
